@@ -16,3 +16,18 @@ To try it out:
  
 2. Open index.html in your browser, you can save it as your home page within your browser settings.
    
+
+
+
+Future Ideas:
+
+Add weather widget
+
+Add bookmarks section
+
+Theme switcher (light/dark)
+
+
+
+
+⭐️ This is one of my beginner projects as I explore web development. Feedback welcome!
