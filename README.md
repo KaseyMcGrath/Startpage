@@ -8,9 +8,6 @@ I made this project to practice front-end development and to create a personal l
 - Responsive design (works on different screen sizes)
 - Retro aesthetic
 
-## Screenshot
-*(Add an image later if you want — e.g., `![screenshot](screenshot.png)`)*
-
 ## Getting Started
 To try it out:
 1. Clone the repo  
