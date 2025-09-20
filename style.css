@@ -1,0 +1,319 @@
+:root {
+  --phosphor: #00ff8a;
+  --phosphor-dim: #00c96b;
+  --phosphor-muted: #45b06e;
+  --shadow: 0 0 12px rgba(0, 255, 138, 0.15), 0 0 24px rgba(0, 255, 138, 0.08);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background:
+    radial-gradient(
+      1200px 600px at 50% -10%,
+      rgba(0, 255, 138, 0.06),
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0 1px,
+      rgba(0, 0, 0, 0.08) 2px 3px
+    ),
+    linear-gradient(180deg, #030603, #060a06);
+  color: var(--phosphor);
+  font:
+    18px/1.4 "VT323",
+    monospace;
+  text-shadow: 0 0 2px rgba(0, 255, 138, 0.35);
+}
+.wrap {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 16px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+.controls button,
+button {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--phosphor-dim);
+  color: var(--phosphor);
+  padding: 6px 10px;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 255, 138, 0.1),
+    var(--shadow);
+}
+.controls button:hover,
+button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 255, 138, 0.18),
+    0 0 14px rgba(0, 255, 138, 0.25);
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-content: stretch; /* was start → stretch to fill */
+  justify-items: stretch;
+  grid-auto-rows: minmax(240px, 1fr); /* rows grow to fill */
+  min-height: 0; /* prevents overflow issues */
+}
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.section {
+  grid-column: span 6;
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 8px;
+  background: rgba(0, 30, 0, 0.18);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+
+  display: flex;          /* already there */
+  flex-direction: column; /* already there */
+  height: 100%;           /* NEW: card fills its grid row */
+  min-height: 0;          /* allow inner scrollers to size correctly */
+}
+.section.small {
+  grid-column: span 4;
+}
+.section .hd {
+  border-bottom: 1px dashed var(--phosphor-dim);
+  padding: 8px 10px;
+  background: rgba(0, 40, 0, 0.15);
+  letter-spacing: 0.1em;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px;
+}
+@media (max-width: 720px) {
+  .links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.link {
+  display: flex;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px dashed var(--phosphor-dim);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--phosphor);
+  background: rgba(0, 20, 0, 0.2); <section class="section small pattern tools">
+        <div class="hd"><h2>Tools</h2><small class="note">security</small></div>
+        <div class="links" id="links-tools"></div>
+      </section>
+      <section class="section small pattern social">
+        <div class="hd"><h2>Feeds & News</h2><small class="note">RSS + daily</small></div>
+        <div class="rss" id="rssList"><div class="note">Add/change feeds in <span class="kbd">Settings → RSS</span>.</div></div>
+      </section>
+      <section class="section pattern learn">
+        <div class="hd"><h2>Learn / Labs</h2><small class="note">study hubs</small></div>
+        <div class="links" id="links-learn"></div>
+      </section>
+    </div>
+  </div>
+  <dialog id="settings">
+    <form method="dialog">
+      <div class="set-hd"><strong>Settings</strong><button value="close">✖</button></div>
+      <div class="set-body">
+        <section>
+          <h3>Links</h3>
+          <div class="field"><label>Tools JSON</label><textarea id="set-tools" rows="6"></textarea></div>
+          <div class="field"><label>Learn / Labs JSON</label><textarea id="set-learn" rows="6"></textarea></div>
+        </section>
+        <section>
+          <h3>Appearance</h3>
+          <div class="field"><label>Page Pattern / Image URL</label><input id="set-bg" /></div>
+          <div class="field"><label>Tools Section Pattern / Image URL</label><input id="set-tools-bg" /></div>
+          <div class="field"><label>Feeds Section Pattern / Image URL</label><input id="set-social-bg" /></div>
+          <div class="field"><label>Learn Section Pattern / Image URL</label><input id="set-learn-bg" /></div>
+          <div class="field"><label>Accent Color</label><input id="set-accent" type="color" value="#22d3ee" /></div>
+          <div class="field"><label>Quick Chat action</label><select id="set-chatact"><option value="copy-open">Copy then open ChatGPT</option><option value="search">Search the web</option></select></div>
+          <h3>RSS Feeds</h3>
+          <div class="field"><label>Feed URLs</label><textarea id="set-rss" rows="5"></textarea></div>
+          <div class="rower"><label><input type="checkbox" id="set-rss-proxy" checked /> Use proxy</label><label><input type="number" id="set-rss-count" value="6" /></label></div>
+        </section>
+ tica Neue", Arial, "Noto Sans"; color:var(--text); background:var(--pattern-global), var(--bg); background-attachment:fixed}
+  .wborder:1px solid #1f2937; border-radius:12px; text-decoration:none; color:var(--text)}
+  .link:hover{border-color:#334155; transform:translateY(-1px)}
+  .l 
+}
+.link small {
+  color: var(--phosphor-muted);
+}
+
+.chatbox {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin: 8px 0 16px;
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(0, 20, 0, 0.25);
+}
+.chatbox input {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--phosphor);
+  border: 1px dashed var(--phosphor-dim);
+  border-radius: 6px;
+  outline: none;
+}
+.chatbox input:focus {
+  box-shadow: 0 0 0 3px rgba(0, 255, 138, 0.15);
+}
+.chatbox .row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rss {
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  max-height: 220px;
+  overflow: auto;
+}
+.rss .item {
+  padding: 8px 10px;
+  border: 1px dashed var(--phosphor-dim);
+  border-radius: 6px;
+  background: rgba(0, 20, 0, 0.18);
+}
+.rss .item a {
+  color: var(--phosphor);
+}
+.rss .meta {
+  color: var(--phosphor-muted);
+}
+
+.gigaduck {
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+.duck-screen {
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  height: 150px;
+  display: grid;
+  place-items: center;
+}
+.sprite {
+  white-space: pre;
+}
+.stats {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  color: var(--phosphor-muted);
+}
+.actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* settings */
+dialog#settings {
+  width: min(900px, calc(100% - 24px));
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 8px;
+  background: rgba(0, 15, 0, 0.92);
+  color: var(--phosphor);
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+.set-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px dashed var(--phosphor-dim);
+}
+.set-body {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  padding: 12px;
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field input,
+.field textarea,
+.field select {
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--phosphor);
+  border: 1px dashed var(--phosphor-dim);
+  border-radius: 6px;
+  padding: 8px;
+}
+.rower {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.set-ft {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 10px 12px;
+  border-top: 1px dashed var(--phosphor-dim);
+}
+.note {
+  color: var(--phosphor-muted);
+}
+.toast {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  padding: 8px 10px;
+  background: rgba(0, 15, 0, 0.9);
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.2s;
+}
+.toast.show {
+  opacity: 1;
+  transform: none;
+}
+

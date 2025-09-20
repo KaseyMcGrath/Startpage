@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello Kasey • Start (CRT)</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Kasey//CRT</h1>
+        <div class="controls">
+          <button id="openSettings">[ SETTINGS ]</button>
+          <button id="refreshRss">[ REFRESH RSS ]</button>
+        </div>
+      </header>
+
+      <form id="chatForm" class="chatbox">
+        <input
+          id="chatInput"
+          type="text"
+          placeholder="> send_to_gpt"
+          autocomplete="off"
+        />
+        <div class="row">
+          <button type="submit">[ RUN ]</button>
+          <button type="button" id="chatCopy">[ COPY ]</button>
+          <button type="button" id="openChat">[ OPEN GPT ]</button>
+        </div>
+      </form>
+
+      <div class="grid">
+        <section class="section small">
+          <div class="hd">:: TOOLS</div>
+          <div class="links" id="links-tools"></div>
+        </section>
+        <section class="section small">
+          <div class="hd">:: FEEDS</div>
+          <div class="rss" id="rssList">
+            <div class="note">(configure feeds in Settings)</div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="hd">:: LEARN</div>
+          <div class="links" id="links-learn"></div>
+        </section>
+        <section class="section small">
+          <div class="hd">:: SOCIAL</div>
+          <div class="links" id="links-social"></div>
+        </section>
+        <section class="section small">
+          <div class="hd">:: GIGADUCK</div>
+          <div class="gigaduck">
+            <div class="duck-screen">
+              <pre id="duckSprite">
+  __
+<(o )___
+ ( ._> /
+  `---'</pre
+              >
+            </div>
+            <div class="stats" id="duckStats">HP:10 HUNGER:10 CLEAN:10</div>
+            <div class="actions">
+              <button id="duckFeed">[ FEED ]</button>
+              <button id="duckPlay">[ PLAY ]</button>
+              <button id="duckClean">[ CLEAN ]</button>
+              <button id="duckForage">[ FORAGE ]</button>
+              <button id="duckNap">[ NAP ]</button>
+            </div>
+            <div class="note" id="duckLog">log: ready.</div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <dialog id="settings">
+      <form method="dialog">
+        <div class="set-hd">
+          <strong>Settings</strong><button value="close">✖</button>
+        </div>
+        <div class="set-body">
+          <section>
+            <h3>Feeds</h3>
+            <div class="field">
+              <label>Feed URLs (comma-separated)</label>
+              <textarea id="set-rss" rows="5"></textarea>
+            </div>
+            <div class="rower">
+              <label
+                ><input type="checkbox" id="set-rss-proxy" checked /> Use
+                proxy</label
+              >
+              <label
+                >Items
+                <input
+                  type="number"
+                  id="set-rss-count"
+                  min="1"
+                  max="50"
+                  value="6"
+                  style="width: 80px"
+              /></label>
+            </div>
+            <h3>Quick Chat</h3>
+            <div class="field">
+              <label>Action</label>
+              <select id="set-chatact">
+                <option value="copy-open">
+                  Copy then open ChatGPT (default)
+                </option>
+                <option value="search">Search the web (DuckDuckGo)</option>
+              </select>
+            </div>
+          </section>
+          <section>
+            <h3>GigaDuck Sleep Window</h3>
+            <div class="rower">
+              <div class="field" style="min-width: 160px">
+                <label>Sleep Start (HH:MM)</label>
+                <input id="set-sleep-start" placeholder="22:00" />
+              </div>
+              <div class="field" style="min-width: 160px">
+                <label>Sleep End (HH:MM)</label>
+                <input id="set-sleep-end" placeholder="06:00" />
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="set-ft">
+          <button value="cancel">Cancel</button><button id="apply">Apply</button
+          ><button id="reset">Reset</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast">copied</div>
+
+    <script defer src="script.js"></script>
+  </body>
+</html>
