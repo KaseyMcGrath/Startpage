@@ -14,6 +14,11 @@ const G = (k, d) => {
 const defaults_local = {
   links_tools: [
     {
+      name: "GitHub",
+      url: "https://github.com/dashboard",
+      desc: "GitHub Dashboard",
+    },
+    {
       name: "Exploit-DB",
       url: "https://www.exploit-db.com/",
       desc: "PoCs & exploits",
@@ -448,9 +453,27 @@ function initUI() {
 
 function loadAll() {
   const st = G("settings", defaults_local);
-  renderLinks(st.links_tools, $("#links-tools"));
-  renderLinks(st.links_learn, $("#links-learn"));
-  renderLinks(st.links_social, $("#links-social"));
+
+  const tools =
+    st.links_tools && st.links_tools.length
+      ? st.links_tools
+      : defaults_local.links_tools;
+  const learn =
+    st.links_learn && st.links_learn.length
+      ? st.links_learn
+      : defaults_local.links_learn;
+  const social =
+    st.links_social && st.links_social.length
+      ? st.links_social
+      : defaults_local.links_social;
+
+  renderLinks(tools, $("#links-tools"));
+  renderLinks(learn, $("#links-learn"));
+  renderLinks(social, $("#links-social"));
+
+  if (st.background) {
+    document.body.style.backgroundImage = st.background;
+  }
 }
 
 function toast(msg) {
